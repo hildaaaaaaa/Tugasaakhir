@@ -14,7 +14,7 @@
             <tr>
                 <th>No.</th>
                 <th>Program Kerja</th>
-                <th>Nama PJ</th>
+                <th>Ketua Proker</th>
                 <th>Kategori</th>
                 <th>Tanggal</th>
                 <th>Deskripsi</th>
@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $program->proker }}</td>
-                <td>{{ $program->nama}}</td>
+                <td>{{ $program->user->name}}</td>
                 <td>{{ $program->category->name }}</td>
                 <td>{{ $program->tanggal}}</td>
                 <td>{{ $program->deskripsi }}</td>

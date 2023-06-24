@@ -2,109 +2,91 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $anggotas = Anggota::get();
-        return view('dashboard.anggotas.index', compact('anggotas'));
+        $users = User::where('role', 'admin')->get();
+        return view('dashboard.anggotas.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('dashboard.anggotas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $validatedData = $request ->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'nomor' => 'required',
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:5|max:255'
         ]);
 
-        Anggota::create($validatedData);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'admin'
+        ]);
 
         return redirect('dashboard/anggotas');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Anggota  $anggota
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Anggota $anggota)
+    public function show($id)
     {
-        return view('dashboard.anggotas.show', [
-            'anggota' => $anggota
-        ]);
+        $user = User::where('id', $id)->first();
+        return view('dashboard.anggotas.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Anggota  $anggota
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Anggota $anggota)
+    public function edit($id)
     {
-        // $categories = Category::get();
-        return view('dashboard.anggotas.edit', [
-            'anggota' => $anggota
-        ]);
+        $user = User::where('id', $id)->first();
+        return view('dashboard.anggotas.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Anggota  $anggota
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Anggota $anggota)
+    public function update($id, Request $request)
     {
-        $validatedData = $request ->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'nomor' => 'required'
+       $validatedData = $request->validate([
+            'name' => 'required|max:255',
         ]);
 
-        // dd($anggota);
-        Anggota::where('id', $anggota->id)
-                    ->update($validatedData);
+        if($request->email){
+            $request->validate([
+                'email' => 'required|email|unique:users,email',
+            ]);
+
+            $validatedData['email'] = $request->email;
+        }
+
+        if($request->password){
+            $request->validate([
+                'password' => 'required|min:5|max:255'
+            ]);
+
+            $validatedData['password'] = bcrypt($request->password);
+        }
+
+        $user = User::where('id', $id)->first();
+        if(!$user){
+            return redirect()->back();
+        }
+        $user->update($validatedData);
 
         return redirect('dashboard/anggotas');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Anggota  $anggota
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Anggota $anggota)
+    public function destroy($id)
     {
-        Anggota::destroy($anggota->id);
+        $user = User::where('id', $id)->first();
+        if (!$user) {
+            return redirect()->back();
+        }
+
+        $user->delete($id);
 
         return redirect('dashboard/anggotas')->with('success', 'Data berhasil dihapus!');
     }

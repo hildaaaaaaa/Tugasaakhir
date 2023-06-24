@@ -9,7 +9,7 @@ class Program extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id', 'proker', 'nama', 'tanggal', 'deskripsi', 'id'];
+    protected $fillable = ['category_id', 'proker', 'user_id', 'tanggal', 'deskripsi', 'id'];
 
     protected $guarded = ['id'];
 
@@ -18,13 +18,17 @@ class Program extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function laporan()
-    {
-        return $this->hasMany(Laporan::class);
-    }
+    // public function laporan()
+    // {
+    //     return $this->hasMany(Laporan::class);
+    // }
 
-    public function evaluasi()
-    {
-        return $this->hasMany(Evaluasi::class);
+    // public function evaluasi()
+    // {
+    //     return $this->hasMany(Evaluasi::class);
+    // }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

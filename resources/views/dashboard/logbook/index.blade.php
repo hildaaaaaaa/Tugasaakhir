@@ -6,9 +6,9 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Program Kerja</li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Logbook</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0">Program Kerja</h6>
+        <h6 class="font-weight-bolder mb-0">Logbook</h6>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -43,47 +43,39 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <h6>Data Program Kerja</h6>
+          <h6>Data Logbook</h6>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
-          <a href="/dashboard/programs/create" class="btn btn-primary ms-4">Add</a>
-          <a href="/cetak" class="btn btn-info ms-1">Export <i class="fas fa-print"></i></a>
+          <a href="/dashboard/logbooks/create" class="btn btn-primary ms-4">Add</a>
           <div class="table-responsive p-0">
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Program Kerja</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kategori</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ketua Proker</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Deskripsi</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Title</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($programs as $program)
+                @foreach ($logbooks as $logbook)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $program->proker }}</td>
-                  <td>{{ $program->category->name }}</td>
-                  <td>{{ $program->user->name }}</td>
-                  <td>{{ $program->tanggal}}</td>
-                  <td>{{ $program->deskripsi }}</td>
+                  <td>{{ $logbook->title}}</td>
                   <td>
-                    <a href="/dashboard/programs/{{ $program->id }}" class="badge bg-info">
+                    <a href="/dashboard/logbooks/{{ $logbook->id }}" class="badge bg-info">
                       <i class="bi bi-eye-fill"></i>
                     </a>
-                    <a href="/dashboard/programs/{{ $program->id }}/edit" class="badge bg-warning">
+                    <a href="/dashboard/logbooks/{{ $logbook->id }}/edit" class="badge bg-warning">
                       <i class="bi bi-pencil"></i>
                     </a>
-                    <form action="/dashboard/programs/{{ $program->id }}" method="post" class="d-inline">
+                    <form action="/dashboard/logbooks/{{ $logbook->id }}" method="post" class="d-inline">
                       @method('delete')
                       @csrf
                       <button class="badge bg-danger border-0" onclick="return confirm('Yakin hapus data?')">
                         <i class="bi bi-trash"></i>
                       </button>
                     </form>
+                    {{-- <a href="/kelurahan/printkelurahan" target="_blank" class="badge btn-danger">Print PDF</a> --}}
                   </td>
                 </tr>
             @endforeach

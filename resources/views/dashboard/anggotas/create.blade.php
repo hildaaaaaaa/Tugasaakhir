@@ -7,9 +7,9 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tambah Anggota</li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tambah Ketua Proker</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0"> Tambah Anggota</h6>
+        <h6 class="font-weight-bolder mb-0"> Tambah Ketua Proker</h6>
       </nav>
       <div class="navbar-nav justify-content-end position-absolute top-50 end-0 translate-middle-y" id="navbar">
         <ul class="navbar-nav justify-content-end">
@@ -38,23 +38,23 @@
     @csrf
 
     <div class=" mb-3">
-      <label for="nama" class="form-label">Nama</label>
-      <input type="text" class="form-control" id="nama" name="nama">
-      @error('nama')
+      <label for="name" class="form-label">Nama</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}">
+      @error('name')
         <div class="text-danger">{{ $message }}</div>
       @enderror
     </div>
     <div class="mb-3">
-      <label for="alamat" class="form-label">Alamat</label>
-      <input type="text" class="form-control" id="alamat" name="alamat">
-      @error('alamat')
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}">
+      @error('email')
         <div class="text-danger">{{ $message }}</div>
       @enderror
     </div>
     <div class="mb-3">
-      <label for="nomor" class="form-label">No. HP</label>
-      <input type="text" class="form-control" id="nomor" name="nomor">
-      @error('nomor')
+      <label for="password" class="form-label">Password</label>
+      <input type="text" class="form-control" id="password" name="password" value="{{old('password')}}">
+      @error('password')
         <div class="text-danger">{{ $message }}</div>
       @enderror
     </div>

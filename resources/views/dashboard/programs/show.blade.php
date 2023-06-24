@@ -45,8 +45,8 @@
       @enderror
     </div>
     <div class="mb-3">
-      <label for="nama" class="form-label">Nama PJ</label>
-      <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $program->nama) }}" disabled>
+      <label for="nama" class="form-label">Ketua Proker</label>
+      <input type="text" class="form-control" id="nama" name="nama" value="{{ $program->user->name}}" disabled>
       @error('nama')
         <div class="text-danger">{{ $message }}</div>
       @enderror

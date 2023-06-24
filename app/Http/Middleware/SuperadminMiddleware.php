@@ -19,6 +19,6 @@ class SuperadminMiddleware
         if (auth()->user()->role == 'superadmin')
             return $next($request);
 
-         return redirect()->back();
+        return redirect()->back();
     }
 }

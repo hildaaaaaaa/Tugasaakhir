@@ -6,9 +6,9 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Anggota</li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Ketua Proker</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0">Anggota</h6>
+        <h6 class="font-weight-bolder mb-0">Ketua Proker</h6>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -43,7 +43,7 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <h6>Data Anggota</h6>
+          <h6>Data Ketua Proker</h6>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <a href="/dashboard/anggotas/create" class="btn btn-primary ms-4">Add</a>
@@ -53,26 +53,24 @@
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                  <th class="text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
-                  <th class="text-uppercase text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. HP</th>
+                  <th class="text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                   <th class="text-uppercase text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($anggotas as $anggota)
+                @foreach ($users as $user)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $anggota->nama }}</td>
-                  <td>{{ $anggota->alamat}}</td>
-                  <td>{{ $anggota->nomor }}</td>
+                  <td>{{ $user->name }}</td>
+                  <td>{{ $user->email}}</td>
                   <td>
-                    <a href="/dashboard/anggotas/{{ $anggota->id }}" class="badge bg-info">
+                    <a href="/dashboard/anggotas/{{ $user->id }}" class="badge bg-info">
                       <i class="bi bi-eye-fill"></i>
                     </a>
-                    <a href="/dashboard/anggotas/{{ $anggota->id }}/edit" class="badge bg-warning">
+                    <a href="/dashboard/anggotas/{{ $user->id }}/edit" class="badge bg-warning">
                       <i class="bi bi-pencil"></i>
                     </a>
-                    <form action="/dashboard/anggotas/{{ $anggota->id }}" method="post" class="d-inline">
+                    <form action="/dashboard/anggotas/{{ $user->id }}" method="post" class="d-inline">
                       @method('delete')
                       @csrf
                       <button class="badge bg-danger border-0" onclick="return confirm('Yakin hapus data?')">

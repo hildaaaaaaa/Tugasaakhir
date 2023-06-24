@@ -7,9 +7,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Tambah Ketua Proker</li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Category</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0"> Tambah Ketua Proker</h6>
+                <h6 class="font-weight-bolder mb-0">Edit Category</h6>
             </nav>
             <div class="navbar-nav justify-content-end position-absolute top-50 end-0 translate-middle-y" id="navbar">
                 <ul class="navbar-nav justify-content-end">
@@ -34,16 +34,17 @@
     </nav>
 
 
-    <div class="col-lg-8 mt-5 ms-5">
+    <form class="col-lg-8 mt-5 ms-5" action="/dashboard/category/{{ $category->id }}" method="post">
         @csrf
-        <div class=" mb-3">
-            <label for="nama" class="form-label">Nama</label>
-            <input type="text" class="form-control" id="nama" value="{{ $user->name }}" disabled>
-        </div>
+        @method('put')
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" value="{{ $user->email }}" disabled>
+            <label for="name" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') ?? $category->name}}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
-        <a href="{{ url()->previous() }}" class="btn btn-default btn-secondary  ms-1">Back</a>
-    </div>
+        <button type="submit" class="btn btn-primary">Save</button> <a href="{{ url()->previous() }}"
+            class="btn btn-default btn-secondary  ms-3">Back</a>
+    </form>
 @endsection
